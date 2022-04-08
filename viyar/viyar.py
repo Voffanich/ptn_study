@@ -1,5 +1,20 @@
 import pandas as pd
 from savex import save_excel
+import os
+
+# Определяем файлы *.html в папке
+dirname = 'C:\\Users\\Matushev_work\\Desktop\\СОХРАН\\bazis'
+dirfiles = os.listdir(dirname)
+files = []
+paths = map(lambda name: os.path.join(dirname, name), dirfiles)
+for fil in paths:
+    count = 1
+    if os.path.isfile(fil) and str(fil).endswith('.html'): 
+        files.append(fil)
+        print(count,'. ', fil)
+
+
+
 
 #table = pd.read_html("C:\\Users\\Admin\\Desktop\\СОХРАНЕНИЕ\\bazis\\1.html", header=0)[0].iloc[:,1:4:]         #home
 table = pd.read_html("C:\\Users\\Matushev_work\\Desktop\\СОХРАН\\bazis\\1.html", header=0)[0].iloc[:,1:4:]      #work
