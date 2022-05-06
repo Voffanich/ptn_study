@@ -3,7 +3,15 @@ from savex import save_excel
 import os
 
 # Определяем файлы *.html в папке
-dirname = 'C:\\Users\\Matushev_work\\Desktop\\СОХРАН\\bazis'
+while True:
+    directory = input("Are you working at work - 'w' or at home - 'h'? ")
+    if directory == "h":
+        dirname = 'C:\\Users\\Admin\\Desktop\\СОХРАНЕНИЕ\\bazis'
+        break
+    elif directory == "w":
+        dirname = 'C:\\Users\\Matushev_work\\Desktop\\СОХРАН\\bazis'
+        break
+        
 dirfiles = os.listdir(dirname)
 
 files = []
@@ -29,14 +37,14 @@ for i in range(table.shape[0]):
     val = table.at[i,'Количество']
     table.at[i,'Количество'] = float(val[:-3] + '.' + val[-3:])
 
-# print(table)
+print(table)
 
 to_str = lambda x: (str(x)) #функция для обработки данных столбца
 
 # prices = pd.read_csv("price.csv", sep=";", converters={'Код':to_str})
 prices = pd.read_csv("price.csv", sep=";", dtype={'Код':str})
 
-#print(prices)
+print(prices)
 
 #Добавление столбца с ценой по кодам товаров из прайса
 for i in range(table.shape[0]):
@@ -46,6 +54,7 @@ for i in range(table.shape[0]):
         table.at[i, 'Стоимость'] = table.at[i,'Количество'] * table.at[i,'Цена']                # Добавление столбца со стоимость позиции (количество х цена)
     else:
         filter = prices['Код'] == table.at[i, 'Код']
+        print(filter)
         table.at[i,'Цена'] = float(prices.loc[filter]['Цена'])                                  # Добавление столбца с ценой из прайса по коду товара
         table.at[i,'Товар'] = prices.loc[filter]['Товар'].to_string().split('    ')[1]          # Замена украинских наименований товаров на русские
         table.at[i, 'Стоимость'] = table.at[i,'Количество'] * table.at[i,'Цена']                # Добавление столбца со стоимость позиции (количество х цена)
@@ -63,4 +72,4 @@ table_f = pd.concat([table_f,fr_f],axis=0)
 
 print(table)
 
-save_excel(table, table_f, str(files[file_to_process]).replace('.html',''))
+save_excel(table, table_f, str(files[file_to_process]).replace('.html',''), dirname)

@@ -1,7 +1,7 @@
 import pandas as pd
 from sqlalchemy import false
 
-def save_excel(table, table_f, file_name):
+def save_excel(table, table_f, file_name, save_dir):
     """    
     table.to_excel('C:\\Users\\Matushev_work\\Desktop\\СОХРАН\\bazis\\output.xlsx', index=False)         #WORK rewrites existing file
     table_f.to_excel('C:\\Users\\Matushev_work\\Desktop\\СОХРАН\\bazis\\output_f.xlsx', index=False)         #WORK rewrites existing file
@@ -16,7 +16,7 @@ def save_excel(table, table_f, file_name):
     writer_initial_f.save()    
     """
     #writer = pd.ExcelWriter(f'C:\\Users\\Matushev_work\\Desktop\\СОХРАН\\bazis\\out{file_name}.xlsx', engine='xlsxwriter')
-    writer_f = pd.ExcelWriter(f'C:\\Users\\Matushev_work\\Desktop\\СОХРАН\\bazis\\out {file_name}.xlsx', engine='xlsxwriter')
+    writer_f = pd.ExcelWriter(f'{save_dir}\\{file_name}.xlsx', engine='xlsxwriter')
     #table.to_excel(writer, index=False, sheet_name='Result')
     table_f.to_excel(writer_f, index=False, sheet_name='Result')
 
