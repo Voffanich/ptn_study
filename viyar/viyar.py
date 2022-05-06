@@ -37,14 +37,14 @@ for i in range(table.shape[0]):
     val = table.at[i,'Количество']
     table.at[i,'Количество'] = float(val[:-3] + '.' + val[-3:])
 
-print(table)
+#print(table)
 
 to_str = lambda x: (str(x)) #функция для обработки данных столбца
 
 # prices = pd.read_csv("price.csv", sep=";", converters={'Код':to_str})
 prices = pd.read_csv("price.csv", sep=";", dtype={'Код':str})
 
-print(prices)
+#print(prices)
 
 #Добавление столбца с ценой по кодам товаров из прайса
 for i in range(table.shape[0]):
@@ -54,7 +54,7 @@ for i in range(table.shape[0]):
         table.at[i, 'Стоимость'] = table.at[i,'Количество'] * table.at[i,'Цена']                # Добавление столбца со стоимость позиции (количество х цена)
     else:
         filter = prices['Код'] == table.at[i, 'Код']
-        print(filter)
+        print(filter)                                                                          # Проверка несоответствий кодов (дублирование, отсутствие)
         table.at[i,'Цена'] = float(prices.loc[filter]['Цена'])                                  # Добавление столбца с ценой из прайса по коду товара
         table.at[i,'Товар'] = prices.loc[filter]['Товар'].to_string().split('    ')[1]          # Замена украинских наименований товаров на русские
         table.at[i, 'Стоимость'] = table.at[i,'Количество'] * table.at[i,'Цена']                # Добавление столбца со стоимость позиции (количество х цена)
