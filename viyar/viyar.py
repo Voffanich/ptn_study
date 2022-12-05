@@ -1,6 +1,7 @@
+import os
+
 import pandas as pd
 from savex import save_excel
-import os
 
 # Определяем файлы *.html в папке
 while True:
